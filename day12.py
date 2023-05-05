@@ -7,6 +7,7 @@ sd = cv2.CascadeClassifier(cv2.data.haarcascades+'haarcascade_smile.xml')
 
 vid = cv2.VideoCapture(0)
 notcaptured = True
+seq = 0
 while notcaptured:
     flag,img = vid.read()
     if flag:
@@ -39,9 +40,14 @@ while notcaptured:
                 minSize = (50,50)
             )
             if len(smiles)==1:
-                cv2.imwrite('myselfie.png',img)
-                notcaptured = False
-                break
+                seq +=1
+                print(seq)
+                if seq ==5:
+                    cv2.imwrite('myselfie.png',img)
+                    notcaptured = False
+                    break
+            else:
+                seq = 0
             # x,y,w,h =(200,200,100,100) 
             # # img_crooped =  img[y:y+h,x:x+w, :]
             cv2.rectangle(
